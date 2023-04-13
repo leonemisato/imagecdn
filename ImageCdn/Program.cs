@@ -18,14 +18,17 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+var imagesDirectoryPath = Path.Combine(Directory.GetCurrentDirectory(), "Images");
+
+if (!Directory.Exists(imagesDirectoryPath))
+    Directory.CreateDirectory(imagesDirectoryPath);
+
 app.UseStaticFiles(new StaticFileOptions()
 {
-    FileProvider = new PhysicalFileProvider(
-                            Path.Combine(Directory.GetCurrentDirectory(), @"Images")),
-    RequestPath = new PathString("/Images"),
+    FileProvider = new PhysicalFileProvider(imagesDirectoryPath),
+    RequestPath = "/Images",
     ServeUnknownFileTypes = true
 });
-
 app.MapPost("/api/base64toimg", async context =>
 {
     context.Response.ContentType = "application/json";
@@ -49,9 +52,8 @@ app.MapPost("/api/base64toimg", async context =>
         var fileName = Guid.NewGuid().ToString() + fileExtension;
         var imageFolder = @"Images";
         if (!Directory.Exists(imageFolder))
-        {
             Directory.CreateDirectory(imageFolder);
-        }
+            
         var imagePath = Path.Combine(imageFolder, fileName);
 
         using (var stream = new MemoryStream(imageBytes))
