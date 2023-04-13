@@ -1,0 +1,39 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.4" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+        <PackageReference Include="System.Drawing.Common" Version="8.0.0-preview.2.23128.3" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Images\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="Models, Images\**" />
+      <Compile Remove="Controllers\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="Models, Images\**" />
+      <EmbeddedResource Remove="Controllers\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Remove="Models, Images\**" />
+      <Content Remove="Controllers\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Models, Images\**" />
+      <None Remove="Controllers\**" />
+    </ItemGroup>
+
+</Project>
